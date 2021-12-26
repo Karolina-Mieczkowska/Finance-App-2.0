@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance App 2.0</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <nav class="nav">
+        <ul class="nav__list">
+            <li class="nav__element nav__element--active">
+                History
+                <span class="material-icons">&#xe889;</span>
+            </li>
+            <li class="nav__element">
+                Transfer
+                <span class="material-icons">&#xef63;</span>
+            </li>
+        </ul>
+    </nav>
+    <main class="main">
+        <section class="balance">
+            <p class="balance__amount">£300</p>
+            <p class="balance__label">Current account</p>
+        </section>
+        <section class="history">
+            <div class="history__tab-container">
+                <button 
+                    class="history__tab history__tab--current history__tab--active"
+                    data-tab="current">
+                        Current
+                </button>
+                <button 
+                    class="history__tab history__tab--saving"
+                    data-tab="saving">
+                        Saving
+                </button>
+                <button 
+                    class="history__tab history__tab--currency"
+                    data-tab="currency">
+                        Currency
+                </button>
+            </div>
+            <div class="history__content history__content--current history__content--active">
+                <div class="movement">
+                    <div class="movement__type">deposit</div>
+                    <div class="movement__value movement__type--deposit">----</div>
+                </div>
+                <div class="movement">
+                    <div class="movement__type">withdrawal</div>
+                    <div class="movement__value movement__type--withdrawal">----</div>
+                </div>
+            </div>
+            <div class="history__content history__content--saving">
+                <div class="movement">
+                    <div class="movement__type">deposit</div>
+                    <div class="movement__value movement__type--deposit">----</div>
+                </div>
+                <div class="movement">
+                    <div class="movement__type">withdrawal</div>
+                    <div class="movement__value movement__type--withdrawal">----</div>
+                </div>
+            </div>
+            <div class="history__content history__content--currency">
+                <div class="movement">
+                    <div class="movement__type">deposit</div>
+                    <div class="movement__value movement__type--deposit">----</div>
+                </div>
+                <div class="movement">
+                    <div class="movement__type">withdrawal</div>
+                    <div class="movement__value movement__type--withdrawal">----</div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="index.js" type="text/javascript"></script>
+</body>
+</html>
