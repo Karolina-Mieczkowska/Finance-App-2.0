@@ -1,20 +1,18 @@
 :root {
-    --primary-clr: #c5cae9;
-    --primary-dark-clr: #9499b7;
-    --primary-light-clr: #f5f6f9;
-    --secondary-clr: #0d47a1;
+    --primary-clr: #0d47a1;
+    --primary-light-clr: #5472d3;
+    --secondary-light-clr: #f5f6f9;
     --secondary-dark-clr: #bdc5da;
-    --secondary-light-clr: #5472d3;
-    --on-primary-clr: #1a237e;
-    --on-primary-dark-clr: #131a5d;
-    --on-secondary-clr: #fff;
+    --on-primary-clr: #c5cae9;
+    --on-secondary-clr: #1a237e;
+    --on-secondary-dark-clr: #131a5d;
 }
 
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
     overflow-y: hidden;
-    background: var(--primary-light-clr);
+    background: var(--secondary-light-clr);
 }
 
 .nav__list {
@@ -24,8 +22,8 @@ body {
     justify-content: space-around;
     padding: 1rem;
     margin: 0;
-    background: var(--secondary-clr);
-    color: var(--primary-clr);
+    background: var(--primary-clr);
+    color: var(--on-primary-clr);
 }
 
 .nav__element--active {
@@ -35,8 +33,8 @@ body {
 
 .balance {
     padding: 3rem;
-    background: var(--secondary-light-clr);
-    color: var(--on-secondary-clr);
+    background: var(--primary-light-clr);
+    color: #fff;
 }
 
 .balance__amount {
@@ -60,14 +58,14 @@ body {
 .history__tab {
     border: none;
     padding: 1rem;
-    color: var(--secondary-clr);
+    color: #333;
     background: var(--secondary-dark-clr);
     font-size: 1rem;
     font-family: 'Roboto', sans-serif;
 }
 
 .history__tab--active {
-    border-bottom: 3px solid var(--secondary-clr);
+    border-bottom: 3px solid var(--primary-clr);
     font-weight: 600;
 }
 
@@ -76,8 +74,8 @@ body {
     overflow-y: scroll;
     max-height: 40vh;
     font-weight: 400;
-    color: #444;
-    background: var(--primary-light-clr);
+    color: #333;
+    background: var(--secondary-light-clr);
 }
 
 /* .history__content--active {
@@ -96,7 +94,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    border-bottom: 1px solid #444;
+    border-bottom: 1px solid #333;
     padding: .75rem 0rem;
 }
 
@@ -130,8 +128,8 @@ body {
 
 .transfer__input--number {
     border: none;
-    border-bottom: 1px solid var(--on-primary-dark-clr);
-    background: var(--primary-light-clr);
+    border-bottom: 1px solid var(--on-secondary-dark-clr);
+    background: var(--secondary-light-clr);
     font-size: 2.25rem;
     width: 98%;
     margin-bottom: 1.25rem;
@@ -141,7 +139,7 @@ body {
     width: 100%;
     padding: .75rem;
     font-size: 1.5rem;
-    background: var(--secondary-clr);
+    background: var(--primary-clr);
     color: #fff;
     border: none;
 }
