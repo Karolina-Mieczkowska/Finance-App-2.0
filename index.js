@@ -3,6 +3,10 @@ const movementValue = document.querySelectorAll('.movement__value');
 const historyTabContainer = document.querySelector('.history__tab-container');
 const historyContent = document.querySelector('.history__content');
 
+const topNav = document.querySelector('.nav');
+const navElements = document.querySelectorAll('.nav__element');
+const mainInterface = document.querySelectorAll('.main__interface');
+
 // ACCOUNTS
 
 const currentAccount = {
@@ -97,6 +101,18 @@ const displayMovements = function(account) {
 
 displayMovements(selectedAccount);
 
+// SWITCH INTERFACE
+
+document.querySelector(`.main__interface--transfer`).style.display = 'none';
+
+const switchInterface = function(dataTab) {
+
+    mainInterface.forEach(function(interface) {
+        interface.style.display = 'none';
+    })
+    document.querySelector(`.main__interface--${dataTab}`).style.display = 'block';
+}
+
 // HISTORY TABS CHANGING
 
 historyTabContainer.addEventListener('click', function(ev) {
@@ -117,6 +133,33 @@ historyTabContainer.addEventListener('click', function(ev) {
     displayBalance(selectedAccount);
 })
 
+// NAV NAVIGATING
 
+topNav.addEventListener('click', function(ev) {
+
+    let clicked;
+
+    if (!ev.target.classList.contains('nav__element')) {
+        clicked = ev.target.firstElementChild;
+    } else {
+        clicked = ev.target;
+    }
+
+    console.log(clicked);
+
+    navElements.forEach(function(element) {
+        element.classList.remove('nav__element--active')
+    })
+
+    clicked.classList.add('nav__element--active');
+    console.log(clicked.dataset.tab)
+
+    switchInterface(clicked.dataset.tab)
+
+    // mainInterface.forEach(function(interface) {
+    //     interface.style.display = 'none';
+    // })
+    // document.querySelector(`.main__interface--${clicked.dataset.tab}`).style.display = 'block';
+});
 
 

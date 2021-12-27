@@ -15,53 +15,78 @@
 <body>
     <nav class="nav">
         <ul class="nav__list">
-            <li class="nav__element nav__element--active">
+            <li class="nav__element nav__element--active"
+                data-tab="history">
                 History
                 <span class="material-icons">&#xe889;</span>
             </li>
-            <li class="nav__element">
+            <li class="nav__element"
+            data-tab="transfer">
                 Transfer
                 <span class="material-icons">&#xef63;</span>
             </li>
         </ul>
     </nav>
     <main class="main">
-        <section class="balance">
-            <p class="balance__amount">£300</p>
-            <p class="balance__label">Current account</p>
-        </section>
-        <section class="history">
-            <div class="history__tab-container">
-                <button 
-                    class="history__tab history__tab--current history__tab--active"
-                    data-tab="current"
-                    data-ind="0">
-                        Current
-                </button>
-                <button 
-                    class="history__tab history__tab--saving"
-                    data-tab="saving"
-                    data-ind="1">
-                        Saving
-                </button>
-                <button 
-                    class="history__tab history__tab--currency"
-                    data-tab="currency"
-                    data-ind="2">
-                        Currency
-                </button>
-            </div>
-            <div class="history__content history__content--current">
-                <div class="movement">
-                    <div class="movement__type">deposit</div>
-                    <div class="movement__value movement__type--deposit">----</div>
+        <div class="main__interface main__interface--history">
+            <section class="balance">
+                <p class="balance__amount">£300</p>
+                <p class="balance__label">Current account</p>
+            </section>
+            <section class="history">
+                <div class="history__tab-container">
+                    <button 
+                        class="history__tab history__tab--current history__tab--active"
+                        data-tab="current"
+                        data-ind="0">
+                            Current
+                    </button>
+                    <button 
+                        class="history__tab history__tab--saving"
+                        data-tab="saving"
+                        data-ind="1">
+                            Saving
+                    </button>
+                    <button 
+                        class="history__tab history__tab--currency"
+                        data-tab="currency"
+                        data-ind="2">
+                            Currency
+                    </button>
                 </div>
-                <div class="movement">
-                    <div class="movement__type">withdrawal</div>
-                    <div class="movement__value movement__type--withdrawal">----</div>
+                <div class="history__content history__content--current">
+                    <div class="movement">
+                        <div class="movement__type">deposit</div>
+                        <div class="movement__value movement__type--deposit">----</div>
+                    </div>
+                    <div class="movement">
+                        <div class="movement__type">withdrawal</div>
+                        <div class="movement__value movement__type--withdrawal">----</div>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
+        <div class="main__interface main__interface--transfer">
+            <form class="transfer__form">
+                <label class="transfer__label">Transfer from</label>
+                <select class="transfer__select transfer__select--send" name="accounts" id="accounts" form="transfer_form">
+                    <option value="current">Current</option>
+                    <option value="saving">Saving</option>
+                    <option value="currency">Currency</option>
+                </select>
+                <label class="transfer__label">Transfer to</label>
+                <select class="transfer__select transfer__select--receive" name="accounts" id="accounts" form="transfer_form">
+                    <option value="current">Current</option>
+                    <option value="saving">Saving</option>
+                    <option value="currency">Currency</option>
+                </select>
+                <label class="transfer__label transfer__label--amount">Amount</label>
+                <input type="number" step="10" inputmode="numeric" class="transfer__input--number">
+                <button type="submit" class="btn-transfer">
+                    Send 
+                </button>
+            </form>
+        </div>
     </main>
     <script src="index.js" type="text/javascript"></script>
 </body>
