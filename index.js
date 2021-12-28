@@ -7,6 +7,11 @@ const topNav = document.querySelector('.nav');
 const navElements = document.querySelectorAll('.nav__element');
 const mainInterface = document.querySelectorAll('.main__interface');
 
+const btnTransfer = document.querySelector('.btn__transfer');
+const selectSend = document.querySelector('.transfer__select--send');
+const selectReceive = document.querySelector('.transfer__select--receive');
+const amountInput = document.querySelector('.transfer__input--number');
+
 // ACCOUNTS
 
 const currentAccount = {
@@ -27,7 +32,7 @@ const currencyAccount = {
     type: 'currency',
     currency: 'PLN',
     locale: 'pl',
-    movements: [500]
+    movements: [2000]
 }
 
 const accounts = [currentAccount, savingAccount, currencyAccount];
@@ -45,10 +50,12 @@ let selectedAccount = accounts[0];
 
 // CURRENCY CONVERTION
 
-const convertCurrency = function(amount) {
+const convertCurrency = function(amount, currency) {
 
     const exchangeRate = 5.33;
-    const convertedAmount = amount * exchangeRate;
+    let convertedAmount;
+
+    convertedAmount = currency !== 'PLN' ? amount / exchangeRate : amount * exchangeRate;
     return convertedAmount;
 }
 
@@ -56,16 +63,11 @@ const convertCurrency = function(amount) {
 
 const displayBalance = function(account) {
     
-    let balance = account.movements.reduce(function(accumulator, current) {
+    account.balance = account.movements.reduce(function(accumulator, current) {
         return accumulator + current;
     }, 0);
 
-    if (account.type === 'currency') {
-        
-        balance = convertCurrency(balance);
-    }
-
-    const formattedBalance = formatCurrency(balance, account.locale, account.currency);
+    const formattedBalance = formatCurrency(account.balance, account.locale, account.currency);
 
     balanceAmount.textContent = formattedBalance;
 };
@@ -80,11 +82,6 @@ const displayMovements = function(account) {
 
     account.movements.forEach(function(movement) {
         const type = movement > 0 ? 'deposit' : 'withdrawal';
-
-        if (account.type === 'currency') {
-            
-            movement = convertCurrency(movement);
-        }
 
         const formatedMovement = formatCurrency(movement, account.locale, account.currency)
 
@@ -101,9 +98,31 @@ const displayMovements = function(account) {
 
 displayMovements(selectedAccount);
 
+// TRANSFER MONEY 
+
+const makeTransfer = function(sender, receiver, value) {
+
+    if (value > 0 && sender.balance >= value && sender !== receiver) {
+
+        sender.movements.push(-value);
+        receiver.movements.push(value);
+
+        if (sender.type || receiver.type === 'currency') {
+            
+            const receiverLength = receiver.movements.length - 1;
+            let lastReceiverItem = receiver.movements[receiverLength];
+            const convertedItem = convertCurrency(lastReceiverItem, receiver.currency);
+            receiver.movements.pop();
+            receiver.movements.push(convertedItem);
+        } 
+    } else {
+        alert('Check if transfer amount is less than the account balance, and if it is greater than 0.');
+    }
+}
+
 // SWITCH INTERFACE
 
-document.querySelector(`.main__interface--transfer`).style.display = 'none';
+document.querySelector(`.main__interface--history`).style.display = 'block';
 
 const switchInterface = function(dataTab) {
 
@@ -139,27 +158,62 @@ topNav.addEventListener('click', function(ev) {
 
     let clicked;
 
-    if (!ev.target.classList.contains('nav__element')) {
+    if (ev.offsetX > (window.innerWidth / 2) && ev.target.classList.contains('nav__list')) {
+        clicked = ev.target.firstElementChild.nextElementSibling;
+    } else if (ev.target.classList.contains('material-icons')) {
+        clicked = ev.target.parentElement;
+    } else if (ev.target.classList.contains('nav__list')) {
         clicked = ev.target.firstElementChild;
-    } else {
+    } else if (ev.target.classList.contains('nav__element')) {
         clicked = ev.target;
-    }
-
-    console.log(clicked);
+    };
 
     navElements.forEach(function(element) {
-        element.classList.remove('nav__element--active')
-    })
+        element.classList.remove('nav__element--active');
+    });
 
     clicked.classList.add('nav__element--active');
-    console.log(clicked.dataset.tab)
 
-    switchInterface(clicked.dataset.tab)
+    switchInterface(clicked.dataset.tab);
 
-    // mainInterface.forEach(function(interface) {
-    //     interface.style.display = 'none';
+    // let clicked;
+
+    // if (!ev.target.classList.contains('nav__element')) {
+    //     clicked = ev.target.firstElementChild;
+    // } else {
+    //     clicked = ev.target;
+    // }
+
+    // navElements.forEach(function(element) {
+    //     element.classList.remove('nav__element--active')
     // })
-    // document.querySelector(`.main__interface--${clicked.dataset.tab}`).style.display = 'block';
+
+    // clicked.classList.add('nav__element--active');
+
+    // switchInterface(clicked.dataset.tab)
 });
+
+// TRANSFER
+
+btnTransfer.addEventListener('click', function(ev) {
+
+    ev.preventDefault();
+
+    const senderAccount = accounts.find(function(acc) {
+        return acc.type === selectSend.value;
+    })
+
+    const receiverAccount = accounts.find(function(acc) {
+        return acc.type === selectReceive.value;
+    })
+
+    const transferValue = Number(amountInput.value);
+
+    makeTransfer(senderAccount, receiverAccount, transferValue);
+    displayBalance(selectedAccount);
+    displayMovements(selectedAccount);
+
+    amountInput.value = '';
+})
 
 

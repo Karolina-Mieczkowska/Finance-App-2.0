@@ -15,6 +15,10 @@ body {
     background: var(--secondary-light-clr);
 }
 
+.main__interface {
+    display: none;
+}
+
 .nav__list {
     list-style: none;
     display: flex;
@@ -98,17 +102,32 @@ body {
     padding: .75rem 0rem;
 }
 
+.movement:last-child {
+    margin-bottom: 4rem;
+}
+
 .movement__type--deposit {
     color: #0da15b;
+}
+
+/* SUMMARY */
+
+.summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    color: #fff;
+    background: var(--primary-clr);
+    font-size: 1.25rem;
 }
 
 /* FORM */
 
 .transfer__form {
-    /* display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    height: 70vh; */
     margin: 3rem;
 }
 
@@ -135,7 +154,7 @@ body {
     margin-bottom: 1.25rem;
 }
 
-.btn-transfer {
+.btn__transfer {
     width: 100%;
     padding: .75rem;
     font-size: 1.5rem;
