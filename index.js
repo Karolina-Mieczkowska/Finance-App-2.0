@@ -12,6 +12,9 @@ const selectSend = document.querySelector('.transfer__select--send');
 const selectReceive = document.querySelector('.transfer__select--receive');
 const amountInput = document.querySelector('.transfer__input--number');
 
+const incomeLabel = document.querySelector('.summary__in');
+const outcomeLabel = document.querySelector('.summary__out');
+
 // ACCOUNTS
 
 const currentAccount = {
@@ -98,6 +101,29 @@ const displayMovements = function(account) {
 
 displayMovements(selectedAccount);
 
+// DISPLAY SUMMARY
+
+const displaySummary = function(account) {
+
+    const income = account.movements.filter(function(movement) {
+        return movement > 0;
+    }).reduce(function(acc, curr) {
+        return acc + curr;
+    }, 0);
+
+    incomeLabel.textContent = formatCurrency(income, account.locale, account.currency);
+
+    const outcome = account.movements.filter(function(movement) {
+        return movement < 0;
+    }).reduce(function(acc, curr) {
+        return acc + curr;
+    }, 0);
+
+    outcomeLabel.textContent = formatCurrency(Math.abs(outcome), account.locale, account.currency);
+}
+
+displaySummary(selectedAccount);
+
 // TRANSFER MONEY 
 
 const makeTransfer = function(sender, receiver, value) {
@@ -150,6 +176,7 @@ historyTabContainer.addEventListener('click', function(ev) {
 
     displayMovements(selectedAccount);
     displayBalance(selectedAccount);
+    displaySummary(selectedAccount);
 })
 
 // NAV NAVIGATING
@@ -175,22 +202,6 @@ topNav.addEventListener('click', function(ev) {
     clicked.classList.add('nav__element--active');
 
     switchInterface(clicked.dataset.tab);
-
-    // let clicked;
-
-    // if (!ev.target.classList.contains('nav__element')) {
-    //     clicked = ev.target.firstElementChild;
-    // } else {
-    //     clicked = ev.target;
-    // }
-
-    // navElements.forEach(function(element) {
-    //     element.classList.remove('nav__element--active')
-    // })
-
-    // clicked.classList.add('nav__element--active');
-
-    // switchInterface(clicked.dataset.tab)
 });
 
 // TRANSFER
@@ -212,6 +223,7 @@ btnTransfer.addEventListener('click', function(ev) {
     makeTransfer(senderAccount, receiverAccount, transferValue);
     displayBalance(selectedAccount);
     displayMovements(selectedAccount);
+    displaySummary(selectedAccount);
 
     amountInput.value = '';
 })
