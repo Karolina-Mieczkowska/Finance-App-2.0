@@ -133,7 +133,11 @@ const makeTransfer = function(sender, receiver, value) {
         sender.movements.push(-value);
         receiver.movements.push(value);
 
-        if (sender.type || receiver.type === 'currency') {
+        if (sender.type == 'currency' || receiver.type == 'currency') {
+
+            console.log('currency')
+            console.log(sender.type)
+            console.log(receiver.type)
             
             const receiverLength = receiver.movements.length - 1;
             let lastReceiverItem = receiver.movements[receiverLength];
