@@ -103,10 +103,10 @@ body {
 .summary {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    position: absolute;
+    /* position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
+    width: 100%; */
     padding: 0 1.5rem;
     color: #fff;
     background: var(--primary-clr);
