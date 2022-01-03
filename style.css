@@ -11,7 +11,7 @@
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    overflow-y: hidden;
+    /* overflow-y: hidden; */
     background: var(--secondary-light-clr);
 }
 
@@ -160,9 +160,9 @@ body {
 
 @media only screen and (min-width: 1200px) {
     
-    body {
+    /* body {
         overflow-y: inherit;
-    }
+    } */
 
     .nav {
         display: none;
